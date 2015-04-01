@@ -1,0 +1,34 @@
+{  
+  "art_cnt":5,
+  "id_cnt":1,
+  "articles":[  
+    {  
+      "title":"Lorem Ipsum",
+      "text":" • Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue suscipit condimentum. Vestibulum iaculis molestie tortor eget efficitur. Integer porttitor maximus tempor. Curabitur eu ipsum vitae odio tempus feugiat. Sed at augue nisl. In sagittis quis dui eu pharetra. In gravida, ipsum vel suscipit sagittis, nisi libero porta ante, id tincidunt metus purus sed ipsum. Sed tortor neque, placerat accumsan rhoncus nec, egestas eget ligula. Ut interdum enim quis leo pulvinar, vel tristique velit luctus. Curabitur consequat fringilla tortor sit amet pretium. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et."
+    },
+    {  
+      "title":"Lorem Ipsum",
+      "text":"retra. In gravida, ipsum vel suscipit sagittis, nisi libero porta ante, id tincidunt metus purus sed ipsum. Sed tortor neque, placerat accumsan rhoncus nec, egestas eget ligula. Ut interdum enim quis leo pulvinar, vel tristique velit luctus. Curabitur consequat fringilla tortor sit amet pretium. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et. Suspendisse ac orci ut ex facilisis luctus eget eu magna. Quisque ut lacus sollicitudin, efficitur ante vitae, blandit erat. Aenean mi ex, volutpat eget mollis convallis, scelerisque et justo. Nam elit neque, vi"
+    },
+    {  
+      "title":"Lorem Ipsum",
+      "text":"retra. In gravida, ipsum vel suscipit sagittis, nisi libero porta ante, id tincidunt metus purus sed ipsum. Sed tortor neque, placerat accumsan rhoncus nec, egestas eget ligula. Ut interdum enim quis leo pulvinar, vel tristique velit luctus. Curabitur consequat fringilla tortor sit amet pretium. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et. Suspendisse ac orci ut ex facilisis luctus eget eu magna. Quisque ut lacus sollicitudin, efficitur ante vitae, blandit erat. Aenean mi ex, volutpat eget mollis convallis, scelerisque et justo. Nam elit neque, vi"
+    },
+    {  
+      "title":"Lorem Ipsum",
+      "text":"retra. In gravida, ipsum vel suscipit sagittis, nisi libero porta ante, id tincidunt metus purus sed ipsum. Sed tortor neque, placerat accumsan rhoncus nec, egestas eget ligula. Ut interdum enim quis leo pulvinar, vel tristique velit luctus. Curabitur consequat fringilla tortor sit amet pretium. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et. Suspendisse ac orci ut ex facilisis luctus eget eu magna. Quisque ut lacus sollicitudin, efficitur ante vitae, blandit erat. Aenean mi ex, volutpat eget mollis convallis, scelerisque et justo. Nam elit neque, vi"
+    },
+    {  
+      "title":"Lorem Ipsum",
+      "text":"retra. In gravida, ipsum vel suscipit sagittis, nisi libero porta ante, id tincidunt metus purus sed ipsum. Sed tortor neque, placerat accumsan rhoncus nec, egestas eget ligula. Ut interdum enim quis leo pulvinar, vel tristique velit luctus. Curabitur consequat fringilla tortor sit amet pretium. Maecenas pulvinar urna quam, et ullamcorper metus sagittis et. Suspendisse ac orci ut ex facilisis luctus eget eu magna. Quisque ut lacus sollicitudin, efficitur ante vitae, blandit erat. Aenean mi ex, volutpat eget mollis convallis, scelerisque et justo. Nam elit neque, vi"
+    }
+  ],
+  "important_dates":[  
+    {
+      "date" : "Monday, January 1, 2000",
+      "text" : "It's the new year! Lorem ipsum dolar sit amet!"
+    }
+  ],
+  "ticker":"This is the tiker at the bottom of the screen! – It shows less importtant information. – You can change the speed of this is the \"Options\" menu. – This feature is new to Eagle News. – This program was created by Ryan Westcott, if you have any questions, comments or sugestion please e-mail him at ryan@rywestech.com – Thank you for using Eagle News, created by Ryan Westcott."
+}
+
