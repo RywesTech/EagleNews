@@ -1,6 +1,26 @@
-import controlP5.*;
-import g4p_controls.*;
-import java.util.Date;
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import controlP5.*; 
+import g4p_controls.*; 
+import java.util.Date; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class EagleNews extends PApplet {
+
+
+
+
 
 ControlP5 cp5;
 Textarea[] art_Textarea, id_Textarea;
@@ -34,13 +54,13 @@ JSONObject art_article, id_article;
 JSONArray art_list, id_list;
 JSONArray important_dates;
 
-boolean debug = true;
+boolean debug = false;
 boolean loaded = false;
-boolean sketchFullScreen() {
+public boolean sketchFullScreen() {
   return true;
 }
 
-void setup() {
+public void setup() {
   x = displayWidth;
   y = displayHeight;
   //x = 1024;
@@ -197,10 +217,10 @@ void setup() {
   art_scroll.setEasing(2);
   id_scroll.setEasing(2);
 
-  println("Setup took " + millis() / 1000.0 + " seconds.");
+  println("Setup took " + millis() / 1000.0f + " seconds.");
 }
 
-void draw() {
+public void draw() {
 
   hour = hour();
   minute = minute();
@@ -301,9 +321,7 @@ void draw() {
       art_Textarea[i].setPosition((i*320+10)-scrollVal, 130);
       textAlign(CENTER, CENTER);
       textSize(25);
-      fill(0);
-      //text(art_title[i], (i*320) - scrollVal, 60, 320, 66);
-      text(art_title[i], (i*320) - scrollVal, 53, 320, 75);
+      text(art_title[i], (i*320) - scrollVal, 60, 320, 66);
     }
     scrollVal = art_scroll.getValueI();
 
@@ -338,11 +356,11 @@ void draw() {
     rect(x - 90, 10, 70, 30, 10);
     fill(0);
     textSize(20);
-    text("← Menu", 18, 33);
+    text("\u2190 Menu", 18, 33);
     text("Quit", x - 75, 33);
 
     textSize(25);
-    tickerX = tickerX - 4.5;
+    tickerX = tickerX - 4.5f;
     if (tickerX < (textWidth(ticker) * -1) + (textWidth(date) + 20)) {
       tickerX = x - (textWidth(time) + 20);
     }
@@ -359,7 +377,7 @@ void draw() {
       try {
         image(icon, 0, y - 230, 150, 150);
         textSize(70);
-        text(temp + "°F", 140, y - 135);
+        text(temp + "\u00b0F", 140, y - 135);
         textSize(30);
         textAlign(CENTER);
         text(description, 100, y - 120, 180, 500);
@@ -370,9 +388,9 @@ void draw() {
       }
     } else {
       textSize(70);
-      text("--°F", 140, y - 135);
+      text("--\u00b0F", 140, y - 135);
       textSize(30);
-      text("-----------", 140, y - 100);
+      text("-----------", 140, y - 100); 
     }
 
     break;
@@ -395,3 +413,70 @@ Wednesday
  
  30
  */
+public void hideTB() {
+  for (int i = 0; i < art_cnt; i++) {
+    art_Textarea[i].hide();
+  }
+}
+
+public void showTB() {
+  for (int i = 0; i < art_cnt; i++) {
+    art_Textarea[i].show();
+  }
+}
+
+String description;
+float temp_;
+int temp;
+
+public void getWeather() {
+
+  final JSONObject json;
+  final JSONArray weather;
+  final JSONObject finalWeather;
+  final JSONObject main;
+
+  String weatherIcon;
+
+  json = loadJSONObject("http://www.openweathermap.org/data/2.5/weather?q=portland,us&cnt=1&mode=json&units=metric");
+  println(json);
+
+  weather = json.getJSONArray("weather");
+  finalWeather = weather.getJSONObject(0);
+  weatherIcon = finalWeather.getString("icon");
+  description = finalWeather.getString("description");
+  println("done loading weather, it took " + millis() / 1000.0f + " seconds");
+
+  main = json.getJSONObject("main");
+  temp_ = main.getFloat("temp");
+  temp = PApplet.parseInt(temp_ / 5 * 9 + 32);
+
+  icon = loadImage("icns/" + weatherIcon + ".png");
+  println("done loading image, it took " + millis() / 1000.0f + " seconds");
+  loaded = true;
+}
+
+public void debug() {
+  fill(150);
+  rect(x - 250, y - 100, 250, 100, 10, 10, 0, 10);
+  fill(0);
+  textSize(15);
+  text(mouseX + "\n" + mouseY, x-240, y-80);
+  text(scrollVal, x-240, y-40);
+}
+
+public void loadJSON() {
+  //text = loadJSONObject("/Users/ryan/Desktop/EAGLE NEWS/latest.eaglenews");
+  //text = loadJSONObject("/Users/ryan/Desktop/latest.eaglenews");
+  text = loadJSONObject("Z:\\IDD-SHARE\\Student Council\\EAGLE NEWS\\latest.eaglenews");
+}
+
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "--full-screen", "--bgcolor=#666666", "--hide-stop", "EagleNews" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}

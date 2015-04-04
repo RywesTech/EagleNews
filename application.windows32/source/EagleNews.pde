@@ -34,7 +34,7 @@ JSONObject art_article, id_article;
 JSONArray art_list, id_list;
 JSONArray important_dates;
 
-boolean debug = true;
+boolean debug = false;
 boolean loaded = false;
 boolean sketchFullScreen() {
   return true;
@@ -301,9 +301,7 @@ void draw() {
       art_Textarea[i].setPosition((i*320+10)-scrollVal, 130);
       textAlign(CENTER, CENTER);
       textSize(25);
-      fill(0);
-      //text(art_title[i], (i*320) - scrollVal, 60, 320, 66);
-      text(art_title[i], (i*320) - scrollVal, 53, 320, 75);
+      text(art_title[i], (i*320) - scrollVal, 60, 320, 66);
     }
     scrollVal = art_scroll.getValueI();
 
@@ -372,7 +370,7 @@ void draw() {
       textSize(70);
       text("--°F", 140, y - 135);
       textSize(30);
-      text("-----------", 140, y - 100);
+      text("-----------", 140, y - 100); 
     }
 
     break;
