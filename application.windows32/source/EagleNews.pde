@@ -1,3 +1,5 @@
+//THIS IS THE GOOD FILE!!!
+
 import controlP5.*;
 import g4p_controls.*;
 import java.util.Date;
@@ -6,7 +8,7 @@ ControlP5 cp5;
 Textarea[] art_Textarea, id_Textarea;
 GCustomSlider art_scroll, id_scroll;
 
-int view = 1, x, y;
+int view = 1, firstTimeView, x, y;
 int art_cnt;//articles count
 int id_cnt;//important dates count
 int id_scrollVal;
@@ -36,6 +38,7 @@ JSONArray important_dates;
 
 boolean debug = false;
 boolean loaded = false;
+boolean firstTime = false;
 boolean sketchFullScreen() {
   return true;
 }
@@ -44,7 +47,7 @@ void setup() {
   x = displayWidth;
   y = displayHeight;
   //x = 1024;
-  //y = 500;
+  //y = 768;
   size(x, y);//This must come first but it needs to be after the x and y are defined
 
   //thread("loadJSON");
@@ -130,11 +133,13 @@ void setup() {
   for (int i = 0; i < art_cnt; i++) {
     art_Textarea[i] = cp5.addTextarea("txt" + i)
       .setPosition(i*320+10, 130)
-        .setSize(300, y-390)
-          .setFont(createFont("texgyretermes-regular.otf", 18))
-            .setLineHeight(18)
+        //.setSize(300, y-390)
+        .setSize(300, ((y/3)*2)-130)
+          .setFont(createFont("texgyretermes-regular.otf", y/50))
+            //.setLineHeight(18)
+            .setLineHeight(y/50)
               .setColor(color(0))
-                .setColorBackground(color(100, 150, 255))
+                .setColorBackground(color(125, 175, 255))
                   .setColorForeground(color(150))
                     .setColorActive(color(200));
     ;
@@ -152,12 +157,12 @@ void setup() {
 
   for (int i = 0; i < id_cnt; i++) {
     id_Textarea[i] = cp5.addTextarea("date" + i)
-      .setPosition(i*200+305, y - 220)
-        .setSize(190, 155)
-          .setFont(createFont("texgyretermes-regular.otf", 15))
-            .setLineHeight(18)
+      .setPosition(i*200+305, y/3*2)
+        .setSize(190, y/3-90)
+          .setFont(createFont("texgyretermes-regular.otf", y/52))
+            .setLineHeight(y/52)
               .setColor(color(0))
-                .setColorBackground(color(60, 140, 240))
+                .setColorBackground(color(85, 165, 240))
                   .setColorForeground(color(150))
                     .setColorActive(color(200));
     ;
@@ -172,7 +177,7 @@ void setup() {
   }
 
   //text = list.getJSONObject(i);
-  art_scroll = new GCustomSlider(this, x / 2 - 150, y-270, 300, 50, null);
+  art_scroll = new GCustomSlider(this, x / 2 - 150, y/3*2-30, 300, 50, null);
   art_scroll.setShowDecor(false, false, false, false);
   art_scroll.setNbrTicks(5);
   if (art_cnt * 320 <= x) {
@@ -201,7 +206,6 @@ void setup() {
 }
 
 void draw() {
-
   hour = hour();
   minute = minute();
   second = second();
@@ -258,12 +262,16 @@ void draw() {
     textAlign(LEFT);
 
     break;
+
+    //------------------------------------------------------------------------------------------------------------------------------------------\\
   case 1://Main Viewing Case
 
-    background(100, 150, 255);
+    background(125, 175, 255);
 
     showTB();
-
+    
+    dynamic();
+    
     if (art_cnt * 320 <= x) {
       art_scroll.setVisible(false);
     } else {
@@ -280,39 +288,48 @@ void draw() {
     rect(0, 0, x, 50);
     rect(0, y - 50, x, 50);
 
-    fill(60, 140, 240);
-    rect(300, y - 240, x - 600, 190);
+    fill(85, 165, 240);
+    //rect(300, y - 240, x - 600, 190);
+    rect(300, y/3*2, x - 600, y/3-50);
 
     for (int i = 0; i < id_cnt + 1; i++) {
-      line(i * 200 - id_scrollVal + 300, y - 240, i * 200 - id_scrollVal + 300, y - 50);
+      //line(i * 200 - id_scrollVal + 300, y - 240, i * 200 - id_scrollVal + 300, y - 50);
+      line(i * 200 - id_scrollVal + 300, y/3*2, i * 200 - id_scrollVal + 300, y - 50);
     }
     for (int i = 0; i < id_cnt; i++) {
-      id_Textarea[i].setPosition((i*200+305)-id_scrollVal, y - 215);
+      id_Textarea[i].setPosition((i*200+305)-id_scrollVal, y/3*2+40);
+      //id_Textarea[i].setPosition((i*200+305)-id_scrollVal, y/3*2);
+      textAlign(LEFT);
       fill(0);
       textSize(18);
-      text(id_title[i], (i*200+305)-id_scrollVal, y-220);
+      text(id_title[i], (i*200+305)-id_scrollVal, y/3*2+30);
     }
     id_scrollVal = id_scroll.getValueI();
 
     for (int i = 0; i < art_cnt + 1; i++) {
-      line(i * 320 - scrollVal, 50, i * 320 - scrollVal, y - 250);
+      line(i * 320 - scrollVal, 50, i * 320 - scrollVal, y/3*2-10);
     }
     for (int i = 0; i < art_cnt; i++) {
       art_Textarea[i].setPosition((i*320+10)-scrollVal, 130);
       textAlign(CENTER, CENTER);
       textSize(25);
-      text(art_title[i], (i*320) - scrollVal, 60, 320, 66);
+      fill(0);
+      text(art_title[i], (i*320) - scrollVal, 53, 320, 75);
     }
     scrollVal = art_scroll.getValueI();
 
     cp5.draw();
 
     fill(70, 150, 250);
-    rect(0, y - 240, 300, 190);
-    rect(x - 300, y - 240, 300, 190);
+    rect(0, y/3*2, 300, y/3-50);
+    rect(x - 300, y/3*2, 300, y/3-50);
 
-    fill(0);
-    line(0, y - 250, x, y - 250);
+    stroke(100);
+    line(0, y/3*2-10, x, y/3*2-10);
+    stroke(0);
+    strokeWeight(1.5);
+    line(0, y/3*2, x, y/3*2);
+    strokeWeight(1);
 
     textAlign(LEFT);
     if (mouseX >= 10 && mouseX <= 110 && mouseY >= 10 && mouseY <= 40) {
@@ -340,7 +357,7 @@ void draw() {
     text("Quit", x - 75, 33);
 
     textSize(25);
-    tickerX = tickerX - 4.5;
+    tickerX = tickerX - 2;
     if (tickerX < (textWidth(ticker) * -1) + (textWidth(date) + 20)) {
       tickerX = x - (textWidth(time) + 20);
     }
@@ -370,26 +387,117 @@ void draw() {
       textSize(70);
       text("--°F", 140, y - 135);
       textSize(30);
-      text("-----------", 140, y - 100); 
+      text("-----------", 140, y - 100);
     }
+    //------------------------------------------------------------------------------------------------------------------------------------------\\
+
 
     break;
   case 2:
     background(100, 150, 255);
+    fill(0);
+    textSize(30);
+    textAlign(CENTER, CENTER);
+    text("No current options \n Click anywhere to return", x / 2, y / 2);
+    if (mousePressed) {
+      view = 0;
+    }
     break;
   default:
     System.err.println("ERROR 001");
     break;
   }
 
+  if (firstTime == true) {
+    switch(firstTimeView) {
+    case 0:
+      fill(0, 150);
+      rect(0, 0, x, y);
+      fill(255, 0, 0);
+      textSize(70);
+      textAlign(CENTER);
+      text("Welcome to the new Eagle News!", x/2, y/2);
+      if (mouseX >= x / 2 - 100 && mouseX <= x / 2 + 100 && mouseY >= y / 2 + 200 && mouseY <= y / 2 + 250) {
+        fill(200);
+        if (mousePressed) {
+          firstTimeView = 1;
+        }
+      } else {
+        fill(150);
+      }
+      rect(x/2 - 100, y/2 + 200, 200, 50, 10);
+      fill(0);
+      textSize(35);
+      text("Take tutorial", x/2, y/2 + 235);
+      break;
+    case 1:
+      fill(0, 150);
+      rect(0, 0, x, 50);
+      rect(0, y/3*2-10, x, y/3+10);
+      fill(255, 0, 0);
+      textSize(40);
+      textAlign(CENTER);
+      text("These are the new articles", x/2, y/2);
+      if (mouseX >= x / 2 - 100 && mouseX <= x / 2 + 100 && mouseY >= y / 2 + 50 && mouseY <= y / 2 + 100) {
+        fill(200);
+        if (mousePressed) {
+          firstTimeView = 2;
+        }
+      } else {
+        fill(150);
+      }
+      rect(x/2 - 100, y/2 + 50, 200, 50, 10);
+      fill(0);
+      textSize(30);
+      text("Next...", x/2, y/2 + 85);
+      break;
+    case 2:
+      fill(0, 150);
+      rect(0, 0, x, y/3*2-10);
+      rect(0, y/3*2, x, y/3+10);
+      fill(255, 0, 0);
+      textSize(40);
+      textAlign(CENTER);
+      text("This is the scroll bar for the articles", x/2, y/2 + 100);
+      if (mouseX >= x / 2 - 100 && mouseX <= x / 2 + 100 && mouseY >= y / 2 + 150 && mouseY <= y / 2 + 200) {
+        fill(200);
+        if (mousePressed) {
+          firstTimeView = 3;
+        }
+      } else {
+        fill(150);
+      }
+      rect(x/2 - 100, y/2 + 150, 200, 50, 10);
+      fill(0);
+      textSize(30);
+      text("Next...", x/2, y/2 + 185);
+      break;
+    case 3:
+      fill(0, 150);
+      rect(0, 0, x, y/3*2);
+      rect(0, y - 50, x, 50);
+      rect(0, y/3*2, 300, y/3-50);
+      rect(x - 300, y/3*2, 300, y/3-50);
+      fill(255, 0, 0);
+      textSize(40);
+      textAlign(CENTER);
+      text("These are the importent dates", x/2, y - 200);
+      if (mouseX >= x / 2 - 100 && mouseX <= x / 2 + 100 && mouseY >= y - 150 && mouseY <= y - 100) {
+        fill(200);
+        if (mousePressed) {
+          firstTime = false;
+        }
+      } else {
+        fill(150);
+      }
+      rect(x/2 - 100, y - 150, 200, 50, 10);
+      fill(0);
+      textSize(30);
+      text("Done", x/2, y - 120);
+      break;
+    }
+  }
   if (debug == true) {
     debug();
   }
 }
-/*
-Wednesday
- 
- September
- 
- 30
- */
